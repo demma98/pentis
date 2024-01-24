@@ -644,6 +644,11 @@ int main(){
               if(collition(piece_x, piece_y, piece, world))
                 rotateRight(&piece_rotation, piece_type, &piece, pieces);
             break;
+            case SDLK_x:
+              rotateRight(&piece_rotation, piece_type, &piece, pieces);
+              if(collition(piece_x, piece_y, piece, world))
+                rotateLeft(&piece_rotation, piece_type, &piece, pieces);
+            break;
 
             /*
             case SDLK_a:
