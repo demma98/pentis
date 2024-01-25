@@ -19,7 +19,7 @@
 
 void init(int *world, int *level, int *lines, int *timer, char *rand, bool *dead);
 void random(char *rand);
-void newPiece(int *piece_x, int *piece_y, int *piece_color, int *piece_rotation, int *piece_type, char *rand);
+void newPiece(int *piece_x, int *piece_y, int *piece_color, int *piece_rotation, int *piece_type, char *rand, int *timer);
 void rotateLeft(int *piece_rotation, int piece_type, bool (*piece)[PIECE_MAX_SIZE][PIECE_MAX_SIZE]
   , const bool pieces[PIECE_VARIATIONS][4][PIECE_MAX_SIZE][PIECE_MAX_SIZE]);
 void rotateRight(int *piece_rotation, int piece_type, bool (*piece)[PIECE_MAX_SIZE][PIECE_MAX_SIZE]
@@ -617,7 +617,7 @@ int main(){
 
   running = true;
   init(&world[0][0], &level, &lines, &timer, &rand, &dead);
-  newPiece(&piece_x, &piece_y, &piece_color, &piece_rotation, &piece_type, &rand);
+  newPiece(&piece_x, &piece_y, &piece_color, &piece_rotation, &piece_type, &rand, &timer);
   updatePiece(piece_rotation, piece_type, &piece, pieces);
   while(running){
     //events
@@ -631,7 +631,7 @@ int main(){
               break;
             case SDLK_r:
               init(&world[0][0], &level, &lines, &timer, &rand, &dead);
-              newPiece(&piece_x, &piece_y, &piece_color, &piece_rotation, &piece_type, &rand);
+              newPiece(&piece_x, &piece_y, &piece_color, &piece_rotation, &piece_type, &rand, &timer);
               updatePiece(piece_rotation, piece_type, &piece, pieces);
               break;
             case SDLK_m:
@@ -661,7 +661,7 @@ int main(){
                 if(collition(piece_x, piece_y, piece, world)){
                   piece_y--;
                   setPiece(piece, &world, piece_x, piece_y, piece_color, &level, &lines);
-                  newPiece(&piece_x, &piece_y, &piece_color, &piece_rotation, &piece_type, &rand);
+                  newPiece(&piece_x, &piece_y, &piece_color, &piece_rotation, &piece_type, &rand, &timer);
                   updatePiece(piece_rotation, piece_type, &piece, pieces);
                   if(collition(piece_x, piece_y, piece, world))
                     dead = true;
@@ -706,7 +706,7 @@ int main(){
           if(collition(piece_x, piece_y, piece, world)){
             piece_y--;
             setPiece(piece, &world, piece_x, piece_y, piece_color, &level, &lines);
-            newPiece(&piece_x, &piece_y, &piece_color, &piece_rotation, &piece_type, &rand);
+            newPiece(&piece_x, &piece_y, &piece_color, &piece_rotation, &piece_type, &rand, &timer);
             if(collition(piece_x, piece_y, piece, world))
               dead = true;
             updatePiece(piece_rotation, piece_type, &piece, pieces);
@@ -801,7 +801,7 @@ void random(char *rand){
   *rand += 1;
 }
 
-void newPiece(int *piece_x, int *piece_y, int *piece_color, int *piece_rotation, int *piece_type, char *rand){
+void newPiece(int *piece_x, int *piece_y, int *piece_color, int *piece_rotation, int *piece_type, char *rand, int *timer){
   *piece_x = WORLD_WIDTH / 2;
   *piece_x -= PIECE_MAX_SIZE / 2;
   *piece_y = 0;
@@ -811,6 +811,7 @@ void newPiece(int *piece_x, int *piece_y, int *piece_color, int *piece_rotation,
   *piece_color += 1;
   random(rand);
   *piece_type = (unsigned int)*rand % PIECE_VARIATIONS;
+  *timer = 0;
 }
 
 void rotateLeft(int *piece_rotation, int piece_type, bool (*piece)[PIECE_MAX_SIZE][PIECE_MAX_SIZE]
