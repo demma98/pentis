@@ -37,7 +37,7 @@ int main(){
 
   //open window
   SDL_Init(SDL_INIT_EVERYTHING);
-  SDL_Window *window = SDL_CreateWindow("tetrominoes", 64, 64, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+  SDL_Window *window = SDL_CreateWindow("pentominoes", 64, 64, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
   SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
   SDL_Texture *font = IMG_LoadTexture(renderer, "font.png");
 
