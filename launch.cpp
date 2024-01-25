@@ -637,6 +637,9 @@ int main(){
             case SDLK_m:
               mute = !mute;
               break;
+            case SDLK_p:
+              pause = !pause;
+              break;
 
             case SDLK_RIGHT:
               if(!dead && !pause){
