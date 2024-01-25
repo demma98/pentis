@@ -11,3 +11,6 @@ rotate piece counter-clockwise:
 
 reset:
   -r
+
+mute:
+  -m
